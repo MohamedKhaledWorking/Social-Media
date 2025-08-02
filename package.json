@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "v22.16.0"
+  },
   "scripts": {
     "dev": "node --watch index.js",
-    "start": "node index.js"
+    "start": "node --watch index.js"
   },
   "keywords": [],
   "author": "",

@@ -98,6 +98,7 @@ export const loginController = async (req, res) => {
     message: "Login successful",
     accessToken,
     refreshToken,
+    user
   });
 };
 

@@ -61,7 +61,7 @@ export const registerController = async (req, res) => {
 export const loginController = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await UserModel.findOne({ email });
+  const user = await UserModel.findOne({ email }).select("-otp -otpExpires -isVerified -isDeleted -coverImage ");
   if (!user) {
     return res.status(404).json({ message: "Email or password are invalid" });
   }

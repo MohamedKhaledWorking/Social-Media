@@ -12,12 +12,12 @@ export const getProfile = (req, res) => {
 };
 
 export const getAllUsers = async (req, res) => {
-  const users = await UserModel.find({isBanned : false});
+  const users = await UserModel.find({ isBanned: false });
   return res.status(200).json({ status: "success", users });
 };
 
 export const getAllBannedUsers = async (req, res) => {
-  const users = await UserModel.find({isBanned : true});
+  const users = await UserModel.find({ isBanned: true });
   return res.status(200).json({ status: "success", users });
 };
 

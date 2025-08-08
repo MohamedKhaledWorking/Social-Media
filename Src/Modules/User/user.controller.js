@@ -2,7 +2,7 @@ import { Router } from "express";
 import { authMiddleware } from "../../Middleware/Authentication.middleware.js";
 import { errorHandler } from "../../Middleware/errorHandler.middleware.js";
 import {
-    activateAccount,
+  activateAccount,
   createAdmin,
   deleteAllUsers,
   deleteProfile,
@@ -23,7 +23,7 @@ import {
 import { authorizeRoles } from "../../Middleware/Authorization.middleware.js";
 import { validateSchema } from "../../Middleware/validation.middleware.js";
 import {
-    activateAccountSchema,
+  activateAccountSchema,
   createUserSchema,
   freezeAccountSchema,
   updateUserPasswordSchema,
@@ -53,7 +53,6 @@ userRoutes.get(
   authorizeRoles("admin"),
   errorHandler(getAllBannedUsers)
 );
-
 
 userRoutes.post(
   "/create-user",
@@ -85,24 +84,24 @@ userRoutes.patch(
 );
 
 userRoutes.patch(
-    '/activate-profile',
-    validateSchema(activateAccountSchema),
-    errorHandler(activateAccount)
-)
+  "/activate-profile",
+  validateSchema(activateAccountSchema),
+  errorHandler(activateAccount)
+);
 
 userRoutes.patch(
   "/banUser/:userId",
   authMiddleware,
   authorizeRoles("admin"),
   errorHandler(banUser)
-)
+);
 
 userRoutes.patch(
   "/unBanUser/:userId",
   authMiddleware,
   authorizeRoles("admin"),
   errorHandler(unBanUser)
-)
+);
 
 userRoutes.delete(
   "/delete-profile/:profileId",
@@ -121,8 +120,20 @@ userRoutes.delete(
 // Share Account Routes
 userRoutes.post("/share-account", authMiddleware, errorHandler(shareAccount));
 
-userRoutes.get("/shared-accounts", authMiddleware, errorHandler(getSharedAccounts));
+userRoutes.get(
+  "/shared-accounts",
+  authMiddleware,
+  errorHandler(getSharedAccounts)
+);
 
-userRoutes.get("/my-shared-accounts", authMiddleware, errorHandler(getMySharedAccounts));
+userRoutes.get(
+  "/my-shared-accounts",
+  authMiddleware,
+  errorHandler(getMySharedAccounts)
+);
 
-userRoutes.delete("/remove-share/:shareId", authMiddleware, errorHandler(removeSharedAccess));
+userRoutes.delete(
+  "/remove-share/:shareId",
+  authMiddleware,
+  errorHandler(removeSharedAccess)
+);

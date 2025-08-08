@@ -61,7 +61,9 @@ export const registerController = async (req, res) => {
 export const loginController = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await UserModel.findOne({ email }).select("-otp -otpExpires -isDeleted -coverImage ");
+  const user = await UserModel.findOne({ email }).select(
+    "-otp -otpExpires -isDeleted -coverImage "
+  );
   if (!user) {
     return res.status(404).json({ message: "Email or password are invalid" });
   }
@@ -98,7 +100,7 @@ export const loginController = async (req, res) => {
     message: "Login successful",
     accessToken,
     refreshToken,
-    user
+    user,
   });
 };
 
@@ -194,33 +196,33 @@ export const logoutController = async (req, res) => {
     // Get the token from the Authorization header
     const authHeader = req.headers.authorization;
     let token = null;
-    
-    if (authHeader && authHeader.startsWith('Bearer ')) {
+
+    if (authHeader && authHeader.startsWith("Bearer ")) {
       token = authHeader.substring(7); // Remove 'Bearer ' prefix
     }
-    
+
     // If token exists, add it to blacklist
     if (token) {
       addToBlacklist(token);
-      console.log('Token blacklisted successfully');
+      console.log("Token blacklisted successfully");
     }
-    
+
     // Clear cookies
-    res.clearCookie('accessToken');
-    res.clearCookie('refreshToken');
-    res.clearCookie('userToken');
-    
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+    res.clearCookie("userToken");
+
     // Send success response
-    res.status(200).json({ 
+    res.status(200).json({
       message: "Logout successful",
       success: true,
-      tokenBlacklisted: !!token
+      tokenBlacklisted: !!token,
     });
   } catch (error) {
-    console.error('Logout error:', error);
-    res.status(500).json({ 
-      message: "Logout failed", 
-      error: error.message 
+    console.error("Logout error:", error);
+    res.status(500).json({
+      message: "Logout failed",
+      error: error.message,
     });
   }
 };

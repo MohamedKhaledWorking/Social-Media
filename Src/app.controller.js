@@ -17,7 +17,7 @@ app.use(express.json());
 
 // Basic root route
 app.get("/", (req, res) => {
-  res.send("API running");
+  res.send(`API running on http://localhost:${PORT}`);
 });
 
 app.use("/api/users", userRoutes);

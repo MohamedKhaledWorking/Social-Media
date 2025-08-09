@@ -5,7 +5,7 @@ import database_connection from "./DB/connection.js";
 import cors from "cors";
 import { authRoutes } from "./Modules/Auth/auth.controller.js";
 import { userRoutes } from "./Modules/User/user.controller.js";
-import postRoutes from "./Modules/Post/post.controller.js";
+import { postRoutes } from "./Modules/Post/post.controller.js";
 
 dotenv.config({ path: path.resolve("Src/Config/.env.dev") });
 

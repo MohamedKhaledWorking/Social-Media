@@ -1,4 +1,4 @@
-import e, { Router } from "express";
+import { Router } from "express";
 import { authMiddleware } from "../../Middleware/Authentication.middleware.js";
 import { errorHandler } from "../../Middleware/errorHandler.middleware.js";
 import {
@@ -60,5 +60,3 @@ postRoutes.delete("/:postId/like", authMiddleware, errorHandler(unlikePost));
 
 // Share a post
 postRoutes.post("/:postId/share", authMiddleware, errorHandler(sharePost)); 
-
-export default postRoutes;

@@ -15,10 +15,6 @@ import {
   getSharedAccounts,
   getMySharedAccounts,
   removeSharedAccess,
-  getUserById,
-  banUser,
-  getAllBannedUsers,
-  unBanUser,
 } from "./Services/user.service.js";
 import { authorizeRoles } from "../../Middleware/Authorization.middleware.js";
 import { validateSchema } from "../../Middleware/validation.middleware.js";
@@ -41,18 +37,6 @@ userRoutes.get(
   errorHandler(getAllUsers)
 );
 
-userRoutes.get(
-  "/getUser/:userId",
-  authMiddleware,
-  authorizeRoles("admin"),
-  errorHandler(getUserById)
-);
-userRoutes.get(
-  "/getAllBannedUsers",
-  authMiddleware,
-  authorizeRoles("admin"),
-  errorHandler(getAllBannedUsers)
-);
 
 userRoutes.post(
   "/create-user",
@@ -89,19 +73,7 @@ userRoutes.patch(
   errorHandler(activateAccount)
 );
 
-userRoutes.patch(
-  "/banUser/:userId",
-  authMiddleware,
-  authorizeRoles("admin"),
-  errorHandler(banUser)
-);
 
-userRoutes.patch(
-  "/unBanUser/:userId",
-  authMiddleware,
-  authorizeRoles("admin"),
-  errorHandler(unBanUser)
-);
 
 userRoutes.delete(
   "/delete-profile/:profileId",

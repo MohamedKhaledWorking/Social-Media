@@ -16,18 +16,7 @@ export const getAllUsers = async (req, res) => {
   return res.status(200).json({ status: "success", users });
 };
 
-export const getAllBannedUsers = async (req, res) => {
-  const users = await UserModel.find({ isBanned: true });
-  return res.status(200).json({ status: "success", users });
-};
 
-export const getUserById = async (req, res) => {
-  const user = await UserModel.findById(req.params.userId);
-  if (!user) {
-    return res.status(404).json({ status: "failure", error: "User not found" });
-  }
-  return res.status(200).json({ status: "success", user });
-};
 
 export const createAdmin = async (req, res) => {
   const isUserExist = await UserModel.findOne({ email: req.body.email });
@@ -151,27 +140,6 @@ export const activateAccount = async (req, res) => {
   });
 };
 
-export const banUser = async (req, res) => {
-  const { userId } = req.params;
-  const user = await UserModel.findById(userId);
-  if (!user) {
-    return res.status(404).json({ status: "failure", error: "User not found" });
-  }
-  user.isBanned = true;
-  await user.save();
-  return res.status(200).json({ status: "success", message: "User banned" });
-};
-
-export const unBanUser = async (req, res) => {
-  const { userId } = req.params;
-  const user = await UserModel.findById(userId);
-  if (!user) {
-    return res.status(404).json({ status: "failure", error: "User not found" });
-  }
-  user.isBanned = false;
-  await user.save();
-  return res.status(200).json({ status: "success", message: "User banned" });
-};
 
 export const deleteProfile = async (req, res) => {
   const { profileId } = req.params;

@@ -29,6 +29,7 @@ import {
   updateUserPasswordSchema,
   updateUserSchema,
 } from "./Validators/user.schema.js";
+import { Multer } from "../../Middleware/multer.middleware.js";
 
 export const userRoutes = Router();
 
@@ -60,6 +61,7 @@ userRoutes.post(
   validateSchema(createUserSchema),
   authMiddleware,
   authorizeRoles("admin"),
+  Multer(["image/png", "image/jpeg", "image/jpg"]).single("profile"),
   errorHandler(createAdmin)
 );
 

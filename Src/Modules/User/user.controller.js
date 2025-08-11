@@ -19,6 +19,7 @@ import {
   banUser,
   getAllBannedUsers,
   unBanUser,
+  uploadProfile,
 } from "./Services/user.service.js";
 import { authorizeRoles } from "../../Middleware/Authorization.middleware.js";
 import { validateSchema } from "../../Middleware/validation.middleware.js";
@@ -61,9 +62,15 @@ userRoutes.post(
   validateSchema(createUserSchema),
   authMiddleware,
   authorizeRoles("admin"),
-  Multer(["image/png", "image/jpeg", "image/jpg"]).single("profile"),
   errorHandler(createAdmin)
 );
+
+userRoutes.patch(
+  '/upload-profile-image/:id',
+  authMiddleware,
+  Multer([ "image/jpeg", "image/png", "image/jpg" ]).single("profileImage"),
+  errorHandler(uploadProfile)
+)
 
 userRoutes.patch(
   "/update-profile",

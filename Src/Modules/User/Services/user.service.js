@@ -2,6 +2,7 @@ import { UserModel } from "../../../DB/Models/User.model.js";
 import { encrypt } from "../../../Utils/encryption.utils.js";
 import bcrypt from "bcryptjs";
 import { SharedAccountModel } from "../../../DB/Models/SharedAccount.model.js";
+import { cloudinary } from "../../../Utils/clodinary.utils.js";
 
 export const getProfile = (req, res) => {
   const user = req.user;
@@ -55,6 +56,29 @@ export const createAdmin = async (req, res) => {
       user.role == "admin"
         ? "Admin created successfully"
         : "User created successfully",
+    user,
+  });
+};
+
+export const uploadProfile = async (req, res) => {
+  const {id} = req.params;
+
+  const user = await UserModel.findById(id);
+  if (!user) {
+    return res.status(404).json({ status: "failure", error: "User not found" });
+  }
+
+
+  const result = await cloudinary().uploader.upload(req.file.path , {
+    folder : "social/profile"
+  })
+
+  user.profileImage = result.secure_url;
+  await user.save();
+
+  return res.status(200).json({
+    status: "success",
+    message: "Profile image uploaded successfully",
     user,
   });
 };
